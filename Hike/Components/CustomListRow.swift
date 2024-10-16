@@ -8,11 +8,45 @@
 import SwiftUI
 
 struct CustomListRow: View {
+    
+    @State var rowLabel: String
+    @State var rowImage: String
+    @State var rowContent: String? = nil
+    @State var rowColor: Color
+    @State var rowLinkLabel: String? = nil
+    @State var rowLinkDestination: String? = nil
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LabeledContent{
+            if rowContent  != nil{
+                Text(rowContent!)
+
+            }else if rowLinkDestination != nil && rowLinkLabel != nil{
+                Link(destination: URL(string: rowLinkDestination!)!) {
+                    Text(rowLinkLabel!)
+                }
+            }
+        } label:{
+            HStack{
+                ZStack{
+                    RoundedRectangle(cornerRadius: 8)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(rowColor)
+                    
+                    Image(systemName: rowImage)
+                        .foregroundStyle(.white)
+                        .fontWeight(.semibold)
+                }
+                Text(rowLabel)
+            }
+        }
+        
     }
 }
 
 #Preview {
-    CustomListRow()
+    List(){
+        CustomListRow(rowLabel: "Application", rowImage: "heart", rowContent: "New", rowColor: .pink)
+
+    }
 }

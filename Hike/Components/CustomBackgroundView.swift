@@ -7,12 +7,29 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
+struct CustomBackgroundView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.customGreenDark
+                .cornerRadius(40)
+                .offset(y: 10)
+            Color.customGreenLight
+                .cornerRadius(40)
+                .offset(y: 3)
+                .opacity(0.85)
+            LinearGradient(
+                colors: [
+                    Color.customGreenLight,
+                    Color.customGreenMedium
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .cornerRadius(40)
+        } .padding()
     }
 }
 
 #Preview {
-    SwiftUIView()
+    CustomBackgroundView()
 }
